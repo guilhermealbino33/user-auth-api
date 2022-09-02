@@ -17,12 +17,10 @@ export class CreateUserUseCase {
 
     const passwordHash = await hash(password, 8);
 
-    return this.usersService.createUser({
+    await this.usersService.createUser({
       name,
       email,
       password: passwordHash,
     });
   }
 }
-
-// Testar e verificar porque ele está passando um user descontruído ao invés de um user
