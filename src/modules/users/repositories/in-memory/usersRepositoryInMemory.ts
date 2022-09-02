@@ -3,14 +3,21 @@ import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUsersRepository } from '../IUsersRepository';
 
 export default class UsersRepositoryInMemory implements IUsersRepository {
-  users: User[] = [];
+  users: User[];
 
-  async create(data: ICreateUserDTO): Promise<void> {
+  constructor() {
+    this.users = [];
+  }
+
+  async create({ name, email, password }: ICreateUserDTO): Promise<void> {
     const user = new User();
 
     Object.assign(user, {
-      data,
+      name,
+      email,
+      password,
     });
+
     this.users.push(user);
   }
   updateUser(userID: string): Promise<User> {
@@ -22,9 +29,9 @@ export default class UsersRepositoryInMemory implements IUsersRepository {
     throw new Error('Method not implemented.');
   }
   async findByEmail(email: string): Promise<User> {
-    return this.users.find((user) => user.email === email);
+    return this.users.find((user) => user.email === email) as User;
   }
   async findById(id: string): Promise<User> {
-    return this.users.find((user) => user.id === id);
+    return this.users.find((user) => user.id === id) as User;
   }
 }

@@ -13,14 +13,17 @@ describe('Create User', () => {
     usersService = new UsersService(usersRepositoryInMemory);
     createUserUseCase = new CreateUserUseCase(usersService);
   });
+
   it('Should be able to create a new user', async () => {
-    const user = await createUserUseCase.execute({
+    await createUserUseCase.execute({
       name: 'John Doe',
       email: 'johndoe@mail.com',
       password: '12346',
     });
 
-    expect(user).toHaveProperty('id');
+    const numOfUsers = usersRepositoryInMemory.users.length;
+
+    expect(numOfUsers).toBe(1);
   });
 
   it('Should not to be able to create an user with existent e-mail', async () => {
@@ -36,6 +39,6 @@ describe('Create User', () => {
         email: 'johndoe@mail.com',
         password: '12346',
       })
-    ).rejects.toEqual(new AppError('User already exists!'));
+    ).rejects.toEqual(new AppError('User already exists!', 409));
   });
 });

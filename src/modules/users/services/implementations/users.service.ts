@@ -10,14 +10,12 @@ export default class UsersService implements IUsersService {
     private usersRepository: IUsersRepository
   ) {}
 
-  async createUser({ name, email, password }: ICreateUserDTO): Promise<User> {
-    const user = await this.usersRepository.create({
+  async createUser({ name, email, password }: ICreateUserDTO): Promise<void> {
+    await this.usersRepository.create({
       email,
       name,
       password,
     });
-
-    return user;
   }
 
   updateUser(userID: string): Promise<User> {
@@ -31,7 +29,7 @@ export default class UsersService implements IUsersService {
     return this.usersRepository.findById(userId);
   }
 
-  async findByEmail(userId: string): Promise<User> {
-    return this.usersRepository.findById(userId);
+  async findByEmail(email: string): Promise<User> {
+    return this.usersRepository.findByEmail(email);
   }
 }
