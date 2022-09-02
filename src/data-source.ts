@@ -10,6 +10,8 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE_NAME,
+  entities: [`${__dirname}/**/entities/**.{ts,js}`],
+  migrations: [`${__dirname}/**/migrations/**.{ts,js}`],
 });
 
 AppDataSource.initialize()
