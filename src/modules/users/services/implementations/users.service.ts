@@ -18,18 +18,24 @@ export default class UsersService implements IUsersService {
     });
   }
 
-  updateUser(userID: string): Promise<User> {
-    throw new Error('Method not implemented.');
+  async updateUser(
+    userId: string,
+    name: string,
+    email: string,
+    password: string
+  ): Promise<void> {
+    await this.usersRepository.updateUser(userId, name, email, password);
   }
-  deleteUser(userID: string): Promise<void> {
+
+  async deleteUser(userID: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  async findById(userId: string): Promise<User> {
+  async findById(userId: string): Promise<User | undefined> {
     return this.usersRepository.findById(userId);
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User | undefined> {
     return this.usersRepository.findByEmail(email);
   }
 }

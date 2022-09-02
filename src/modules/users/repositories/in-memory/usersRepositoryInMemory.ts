@@ -20,7 +20,12 @@ export default class UsersRepositoryInMemory implements IUsersRepository {
 
     this.users.push(user);
   }
-  updateUser(userID: string): Promise<User> {
+  async updateUser(
+    userId: string,
+    name: string,
+    email: string,
+    password: string
+  ): Promise<void> {
     // TODO
     throw new Error('Method not implemented.');
   }
