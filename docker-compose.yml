@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+    database:
+        image: postgres
+        container_name: user_auth
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+            - POSTGRES_DB=database_user_auth
+        volumes:
+            - pgdata:/data/postgres
+
+    app:
+        build: .
+        container_name: user_auth
+        restart: always
+        ports:
+            - 3033:3033
+        volumes:
+            - .:/usr/app
+        links:
+            - database
+        depends_on:
+            - database
+volumes:
+    pgdata:
+        driver: local
