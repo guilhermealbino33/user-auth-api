@@ -24,6 +24,7 @@ describe('Create User', () => {
     const numOfUsers = usersRepositoryInMemory.users.length;
 
     expect(numOfUsers).toBe(1);
+    expect(usersRepositoryInMemory.users[0]).toHaveProperty('id');
   });
 
   it('Should not to be able to create an user with existent e-mail', async () => {
