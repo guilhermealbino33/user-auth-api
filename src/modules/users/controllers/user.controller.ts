@@ -3,7 +3,6 @@ import { container } from 'tsyringe';
 import { ProfileMap } from '../mappers/ProfileMap';
 import { CreateUserUseCase } from '../useCases/createUser.useCase';
 import { DeleteUserUseCase } from '../useCases/deleteUser.useCase';
-import { ShowUserProfileUseCase } from '../useCases/showUserProfile.useCase';
 import { UpdateUserUseCase } from '../useCases/updateUser.useCase';
 
 // CONFERIR O TIPO DE RETORNO
@@ -21,9 +20,17 @@ export async function createUserHandler(request: Request, response: Response) {
 }
 
 export async function updateUserHandler(request: Request, response: Response) {
-  const userId = request.body;
+  const userId = request.params;
+
+  const { name, email, password } = request.body;
+
   const updateUserUseCase = container.resolve(UpdateUserUseCase);
-  const user = await updateUserUseCase.execute(userId);
+  const user = await updateUserUseCase.execute(
+    String(userId),
+    name,
+    email,
+    password
+  );
 
   return response.status(201).json(user);
 }
@@ -36,14 +43,14 @@ export async function deleteUserHandler(request: Request, response: Response) {
   return response.status(201).json(user);
 }
 
-export async function showUserProfileHandler(
-  request: Request,
-  response: Response
-) {
-  const userId = request.body.user.id;
-  const showUserProfile = container.resolve(ShowUserProfileUseCase);
-  const user = await showUserProfile.execute(userId);
-  const profileDTO = ProfileMap.toDTO(user);
+// export async function showUserProfileHandler(
+//   request: Request,
+//   response: Response
+// ) {
+//   const userId = request.body.user.id;
+//   const showUserProfile = container.resolve(ShowUserProfileUseCase);
+//   const user = await showUserProfile.execute(userId);
+//   const profileDTO = ProfileMap.toDTO(user);
 
-  return response.json(profileDTO);
-}
+//   return response.json(profileDTO);
+// }
