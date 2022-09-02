@@ -27,8 +27,8 @@ export default class UsersRepository implements IUsersRepository {
     this.repository.save({ id: userId, name, email, password });
   }
 
-  deleteUser(userID: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deleteUser(userID: string): Promise<void> {
+    this.repository.delete(userID);
   }
 
   async findByEmail(email: string): Promise<User> {

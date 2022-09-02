@@ -9,7 +9,7 @@ export default interface IUsersService {
     email: string,
     password: string
   ): Promise<void>;
-  deleteUser(userID: string): Promise<void>;
+  deleteUser(userId: string): Promise<void>;
   findById(userId: string): Promise<User>;
   findByEmail(userId: string): Promise<User>;
 }

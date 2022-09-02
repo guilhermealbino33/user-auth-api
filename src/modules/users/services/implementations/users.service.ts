@@ -27,8 +27,8 @@ export default class UsersService implements IUsersService {
     await this.usersRepository.updateUser(userId, name, email, password);
   }
 
-  async deleteUser(userID: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deleteUser(userId: string): Promise<void> {
+    this.usersRepository.deleteUser(userId);
   }
 
   async findById(userId: string): Promise<User> {
