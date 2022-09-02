@@ -43,11 +43,8 @@ export async function deleteUserHandler(request: Request, response: Response) {
   return response.status(201).json(user);
 }
 
-// export async function showUserProfileHandler(
-//   request: Request,
-//   response: Response
-// ) {
-//   const userId = request.body.user.id;
+// export async function showUserHandler(request: Request, response: Response) {
+//   const userId = request.params;
 //   const showUserProfile = container.resolve(ShowUserProfileUseCase);
 //   const user = await showUserProfile.execute(userId);
 //   const profileDTO = ProfileMap.toDTO(user);
