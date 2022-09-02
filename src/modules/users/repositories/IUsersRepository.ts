@@ -10,6 +10,6 @@ export interface IUsersRepository {
     password: string
   ): Promise<void>;
   deleteUser(userID: string): Promise<void>;
-  findByEmail(email: string): Promise<User | undefined>;
-  findById(user_id: string): Promise<User | undefined>;
+  findByEmail(email: string): Promise<User>;
+  findById(user_id: string): Promise<User>;
 }

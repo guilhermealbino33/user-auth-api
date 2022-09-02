@@ -30,11 +30,11 @@ export default class UsersRepository implements IUsersRepository {
     throw new Error('Method not implemented.');
   }
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<User> {
     return this.repository.findOne(email);
   }
 
-  async findById(user_id: string): Promise<User | undefined> {
+  async findById(user_id: string): Promise<User> {
     return this.repository.findOne(user_id);
   }
 }

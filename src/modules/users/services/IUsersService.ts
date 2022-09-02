@@ -10,6 +10,6 @@ export default interface IUsersService {
     password: string
   ): Promise<void>;
   deleteUser(userID: string): Promise<void>;
-  findById(userId: string): Promise<User | undefined>;
-  findByEmail(userId: string): Promise<User | undefined>;
+  findById(userId: string): Promise<User>;
+  findByEmail(userId: string): Promise<User>;
 }

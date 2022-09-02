@@ -31,11 +31,11 @@ export default class UsersService implements IUsersService {
     throw new Error('Method not implemented.');
   }
 
-  async findById(userId: string): Promise<User | undefined> {
+  async findById(userId: string): Promise<User> {
     return this.usersRepository.findById(userId);
   }
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<User> {
     return this.usersRepository.findByEmail(email);
   }
 }
