@@ -24,8 +24,6 @@ export class UpdateUserUseCase {
 
     const userToUpdate = await this.usersRepository.findById(id);
 
-    console.log(userToUpdate);
-
     if (!userToUpdate) {
       throw new AppError('User not found!', 404);
     }

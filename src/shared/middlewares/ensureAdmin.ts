@@ -7,13 +7,13 @@ export async function ensureAdmin(
   response: Response,
   next: NextFunction
 ) {
-  const { id } = request.user;
+  const { id } = response.locals;
   const usersRepository = new UsersRepository();
 
   const user = await usersRepository.findById(id);
 
   if (!user.is_admin) {
-    throw new AppError("User isn't admin!");
+    throw new AppError("User isn't admin!", 403);
   }
 
   return next();
