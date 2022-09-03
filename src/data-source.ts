@@ -1,5 +1,7 @@
-import 'dotenv/config';
 import 'reflect-metadata';
+import 'dotenv/config';
+import 'express-async-errors';
+import './shared/container';
 import { DataSource } from 'typeorm';
 import logging from './shared/config/logging';
 
