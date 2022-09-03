@@ -1,14 +1,8 @@
-import { User } from '../../../entities/user';
-import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
+import { IUser, User } from '../../../entities/user';
 
 export default interface IUsersService {
-  createUser({ name, email, password }: ICreateUserDTO): Promise<void>;
-  updateUser(
-    userId: string,
-    name: string,
-    email: string,
-    password: string
-  ): Promise<void>;
+  createUser(user: IUser): Promise<void>;
+  updateUser(user: IUser): Promise<void>;
   deleteUser(userId: string): Promise<void>;
   findById(userId: string): Promise<User>;
   findByEmail(userId: string): Promise<User>;

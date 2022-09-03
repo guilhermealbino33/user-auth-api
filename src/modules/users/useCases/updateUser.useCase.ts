@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { IUser } from '../../../entities/user';
 import { AppError } from '../../../shared/errors/AppError';
 import IUsersService from '../services/IUsersService';
 
@@ -6,13 +7,13 @@ import IUsersService from '../services/IUsersService';
 export class UpdateUserUseCase {
   constructor(@inject('UsersService') private usersService: IUsersService) {}
 
-  async execute(userId: string, name: string, email: string, password: string) {
-    const userToUpdate = await this.usersService.findById(userId);
+  async execute(user: IUser) {
+    const userToUpdate = await this.usersService.findById(user.id);
 
     if (userToUpdate) {
       throw new AppError('User not found!', 404);
     }
 
-    return this.usersService.updateUser(userId, name, email, password);
+    return this.usersService.updateUser(user);
   }
 }

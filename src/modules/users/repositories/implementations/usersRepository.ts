@@ -1,8 +1,7 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
-import { User } from '../../../../entities/user';
+import { IUser, User } from '../../../../entities/user';
 
-import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUsersRepository } from '../IUsersRepository';
 
 export default class UsersRepository implements IUsersRepository {
@@ -12,19 +11,13 @@ export default class UsersRepository implements IUsersRepository {
     this.repository = AppDataSource.getRepository(User);
   }
 
-  async create({ name, email, password }: ICreateUserDTO): Promise<void> {
-    const user = this.repository.create({ name, email, password });
-
-    this.repository.save(user);
+  async create(user: IUser): Promise<void> {
+    const userToCreate = this.repository.create(user);
+    this.repository.save(userToCreate);
   }
 
-  async updateUser(
-    userId: string,
-    name: string,
-    email: string,
-    password: string
-  ): Promise<void> {
-    this.repository.save({ id: userId, name, email, password });
+  async updateUser(user: IUser): Promise<void> {
+    this.repository.save(user);
   }
 
   async deleteUser(userID: string): Promise<void> {
