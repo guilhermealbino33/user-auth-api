@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import logging from '../../../shared/config/logging';
 import { CreateUserUseCase } from '../useCases/createUser.useCase';
 import { DeleteUserUseCase } from '../useCases/deleteUser.useCase';
 import { ShowUserProfileUseCase } from '../useCases/showUserProfile.useCase';

@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../shared/errors/AppError';
+import { ProfileMap } from '../mappers/ProfileMap';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 @injectable()
@@ -15,6 +16,6 @@ export class ShowUserProfileUseCase {
       throw new AppError('User not found!', 404);
     }
 
-    return user;
+    return ProfileMap.toDTO(user);
   }
 }
