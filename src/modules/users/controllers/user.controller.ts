@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import logging from '../../../shared/config/logging';
 import { CreateUserUseCase } from '../useCases/createUser.useCase';
 import { DeleteUserUseCase } from '../useCases/deleteUser.useCase';
+import { ShowUserProfileUseCase } from '../useCases/showUserProfile.useCase';
 import { UpdateUserUseCase } from '../useCases/updateUser.useCase';
 
 // CONFERIR O TIPO DE RETORNO
@@ -20,13 +22,13 @@ export async function createUserHandler(request: Request, response: Response) {
 }
 
 export async function updateUserHandler(request: Request, response: Response) {
-  // Ver como fazer
-  const userId = request.params;
+  const { id } = request.params;
 
   const { name, email, password, is_admin } = request.body;
 
   const updateUserUseCase = container.resolve(UpdateUserUseCase);
   const user = await updateUserUseCase.execute({
+    id,
     name,
     email,
     password,
@@ -39,17 +41,15 @@ export async function updateUserHandler(request: Request, response: Response) {
 export async function deleteUserHandler(request: Request, response: Response) {
   const { id } = request.params;
   const deleteUserUseCase = container.resolve(DeleteUserUseCase);
-
   await deleteUserUseCase.execute(id);
 
   return response.status(204);
 }
 
-// export async function showUserHandler(request: Request, response: Response) {
-//   const userId = request.params;
-//   const showUserProfile = container.resolve(ShowUserProfileUseCase);
-//   const user = await showUserProfile.execute(userId);
-//   const profileDTO = ProfileMap.toDTO(user);
+export async function showUserHandler(request: Request, response: Response) {
+  const { id } = request.params;
+  const showUserProfile = container.resolve(ShowUserProfileUseCase);
+  const user = await showUserProfile.execute(id);
 
-//   return response.json(profileDTO);
-// }
+  return response.status(200).json(user);
+}

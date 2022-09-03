@@ -1,19 +1,32 @@
+import { hash } from 'bcryptjs';
 import { inject, injectable } from 'tsyringe';
 import { IUser } from '../../../entities/user';
 import { AppError } from '../../../shared/errors/AppError';
-import IUsersService from '../services/IUsersService';
+import { isValidId } from '../../../shared/utils/idValidator';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
 @injectable()
 export class UpdateUserUseCase {
-  constructor(@inject('UsersService') private usersService: IUsersService) {}
+  constructor(
+    @inject('UsersRepository') private usersRepository: IUsersRepository
+  ) {}
 
   async execute(user: IUser) {
-    const userToUpdate = await this.usersService.findById(user.id);
+    if (!isValidId(user.id)) {
+      throw new AppError('Invalid id!', 400);
+    }
 
-    if (userToUpdate) {
+    const userToUpdate = await this.usersRepository.findById(user.id);
+
+    if (!userToUpdate) {
       throw new AppError('User not found!', 404);
     }
 
-    return this.usersService.updateUser(user);
+    userToUpdate.name = user.name;
+    userToUpdate.email = user.email;
+    userToUpdate.password = await hash(user.password, 8);
+    user.updated_at = new Date();
+
+    return this.usersRepository.updateUser(user);
   }
 }
