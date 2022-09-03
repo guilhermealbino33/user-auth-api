@@ -22,11 +22,13 @@ export class UpdateUserUseCase {
       throw new AppError('User not found!', 404);
     }
 
+    const password = await hash(user.password, 8);
+
     userToUpdate.name = user.name;
     userToUpdate.email = user.email;
-    userToUpdate.password = await hash(user.password, 8);
-    user.updated_at = new Date();
+    userToUpdate.password = password;
+    userToUpdate.updated_at = new Date();
 
-    return this.usersRepository.updateUser(user);
+    return this.usersRepository.updateUser(userToUpdate);
   }
 }
