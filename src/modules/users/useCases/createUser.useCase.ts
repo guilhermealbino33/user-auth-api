@@ -7,11 +7,13 @@ import { IUsersRepository } from '../repositories/IUsersRepository';
 @injectable()
 export class CreateUserUseCase {
   constructor(
-    @inject('UsersRepository') private usersService: IUsersRepository
+    @inject('UsersRepository') private usersRepository: IUsersRepository
   ) {}
 
   async execute(user: IUser) {
-    const userAlreadyExists = await this.usersService.findByEmail(user.email);
+    const userAlreadyExists = await this.usersRepository.findByEmail(
+      user.email
+    );
 
     if (userAlreadyExists) {
       throw new AppError('User already exists!', 409);
@@ -23,6 +25,6 @@ export class CreateUserUseCase {
       user.is_admin = false;
     }
 
-    await this.usersService.create(user);
+    await this.usersRepository.create(user);
   }
 }

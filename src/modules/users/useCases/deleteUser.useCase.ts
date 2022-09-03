@@ -1,18 +1,26 @@
 import { inject, injectable } from 'tsyringe';
+
 import { AppError } from '../../../shared/errors/AppError';
-import IUsersService from '../services/IUsersService';
+import { isValidId } from '../../../shared/utils/idValidator';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
 @injectable()
 export class DeleteUserUseCase {
-  constructor(@inject('UsersService') private usersService: IUsersService) {}
+  constructor(
+    @inject('UsersRepository') private usersRepository: IUsersRepository
+  ) {}
 
   async execute(userId: string) {
-    const userToDelete = await this.usersService.findById(userId);
+    if (!isValidId(userId)) {
+      throw new AppError('Invalid id!', 400);
+    }
 
-    if (userToDelete) {
+    const userToDelete = await this.usersRepository.findById(userId);
+
+    if (!userToDelete) {
       throw new AppError('User not found!', 404);
     }
 
-    return this.usersService.deleteUser(userId);
+    await this.usersRepository.deleteUser(userId);
   }
 }
