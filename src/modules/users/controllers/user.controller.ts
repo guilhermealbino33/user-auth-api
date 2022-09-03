@@ -23,15 +23,13 @@ export async function createUserHandler(request: Request, response: Response) {
 export async function updateUserHandler(request: Request, response: Response) {
   const { id } = request.params;
 
-  const { name, email, password, is_admin } = request.body;
+  const { name, email, password } = request.body;
 
   const updateUserUseCase = container.resolve(UpdateUserUseCase);
-  const user = await updateUserUseCase.execute({
-    id,
+  const user = await updateUserUseCase.execute(id, {
     name,
     email,
     password,
-    is_admin,
   });
 
   return response.status(200).json(user);
