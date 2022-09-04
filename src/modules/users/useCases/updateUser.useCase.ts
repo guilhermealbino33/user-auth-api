@@ -12,7 +12,7 @@ interface UpdateUserRequest {
 }
 
 @injectable()
-export class UpdateUserUseCase {
+export default class UpdateUserUseCase {
   constructor(
     @inject('UsersRepository') private usersRepository: IUsersRepository
   ) {}

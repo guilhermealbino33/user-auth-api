@@ -5,7 +5,7 @@ import { isValidId } from '../../../shared/utils/idValidator';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 @injectable()
-export class DeleteUserUseCase {
+export default class DeleteUserUseCase {
   constructor(
     @inject('UsersRepository') private usersRepository: IUsersRepository
   ) {}

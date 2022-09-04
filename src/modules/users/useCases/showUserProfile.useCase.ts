@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../shared/errors/AppError';
-import { ProfileMap } from '../mappers/ProfileMap';
+import { ProfileMap } from '../mappers/profileMap';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 @injectable()
-export class ShowUserProfileUseCase {
+export default class ShowUserProfileUseCase {
   constructor(
     @inject('UsersRepository') private usersRepository: IUsersRepository
   ) {}
