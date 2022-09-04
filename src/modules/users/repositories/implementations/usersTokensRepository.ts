@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
 import { AppDataSource } from '../../../../data-source';
-import { IUserToken, UserTokens } from '../../../../entities/UserTokens';
+import { IUserToken, UserTokens } from '../../../../entities/userTokens';
 import { IUsersTokensRepository } from '../IUsersTokensRepository';
 
-class UsersTokensRepository implements IUsersTokensRepository {
+export class UsersTokensRepository implements IUsersTokensRepository {
   private repository: Repository<UserTokens>;
 
   constructor() {
@@ -14,7 +14,7 @@ class UsersTokensRepository implements IUsersTokensRepository {
     user_id,
     expires_date,
     refresh_token,
-  }: IUserToken): Promise<UserTokens> {
+  }: IUserToken): Promise<IUserToken> {
     const userToken = this.repository.create({
       user_id,
       expires_date,
@@ -27,10 +27,14 @@ class UsersTokensRepository implements IUsersTokensRepository {
   async findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string
-  ): Promise<UserTokens> {
+  ): Promise<IUserToken> {
     const usersTokens = await this.repository.findOne({
-      user_id,
-      refresh_token,
+      where: [
+        {
+          refresh_token,
+          user_id,
+        },
+      ],
     });
 
     return usersTokens;
@@ -38,7 +42,7 @@ class UsersTokensRepository implements IUsersTokensRepository {
   async deleteById(id: string): Promise<void> {
     await this.repository.delete(id);
   }
-  async findByRefreshToken(refresh_token: string): Promise<UserTokens> {
+  async findByRefreshToken(refresh_token: string): Promise<IUserToken> {
     const usersToken = await this.repository.findOne({
       where: [
         {
@@ -50,5 +54,3 @@ class UsersTokensRepository implements IUsersTokensRepository {
     return usersToken;
   }
 }
-
-export { UsersTokensRepository };

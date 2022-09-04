@@ -7,7 +7,7 @@ export async function ensureAdmin(
   response: Response,
   next: NextFunction
 ) {
-  const { id } = response.locals;
+  const { id } = request.user;
   const usersRepository = new UsersRepository();
 
   const user = await usersRepository.findById(id);

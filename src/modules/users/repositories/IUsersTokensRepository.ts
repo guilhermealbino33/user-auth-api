@@ -1,4 +1,4 @@
-import { IUserToken, UserTokens } from '../../../entities/UserTokens';
+import { IUserToken } from '../../../entities/userTokens';
 
 export interface IUsersTokensRepository {
   create({
@@ -9,7 +9,7 @@ export interface IUsersTokensRepository {
   findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string
-  ): Promise<UserTokens>;
-  findByRefreshToken(refresh_token: string): Promise<UserTokens>;
+  ): Promise<IUserToken>;
+  findByRefreshToken(refresh_token: string): Promise<IUserToken>;
   deleteById(id: string): Promise<void>;
 }
