@@ -1,12 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { AuthenticateUserUseCase } from '../useCases/authenticateUser/AuthenticateUserUseCase';
-import { CreateUserUseCase } from '../useCases/createUser.useCase';
-import { DeleteUserUseCase } from '../useCases/deleteUser.useCase';
-import { ShowUserProfileUseCase } from '../useCases/showUserProfile.useCase';
-import { UpdateUserUseCase } from '../useCases/updateUser.useCase';
-
-// CONFERIR O TIPO DE RETORNO
+import CreateUserUseCase from '../useCases/createUser.useCase';
+import DeleteUserUseCase from '../useCases/deleteUser.useCase';
+import ShowUserProfileUseCase from '../useCases/showUserProfile.useCase';
+import UpdateUserUseCase from '../useCases/updateUser.useCase';
 
 export async function createUserHandler(request: Request, response: Response) {
   const { name, email, password, is_admin } = request.body;
@@ -50,20 +47,4 @@ export async function showUserHandler(request: Request, response: Response) {
   const user = await showUserProfile.execute(id);
 
   return response.status(200).json(user);
-}
-
-export async function AuthenticateUserHandler(
-  request: Request,
-  response: Response
-): Promise<Response> {
-  const { password, email } = request.body;
-
-  const authenticateUserUseCase = container.resolve(AuthenticateUserUseCase);
-
-  const token = await authenticateUserUseCase.execute({
-    password,
-    email,
-  });
-
-  return response.json(token);
 }

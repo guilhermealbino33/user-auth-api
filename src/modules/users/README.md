@@ -2,9 +2,9 @@
 
 # TODO
 
-[] - Verificar error code
-[] - Middleware ensureAdmin
+[] - AppError
 [] - Refatorar usersTokens repositories
+[] - Verificar onde usava request.ser
 
 # DONE
 
@@ -17,18 +17,21 @@
 [x] - Verificar questão dos mappers e sua necessidade
 [x] - Rota delete
 [x] - Rota update
+[x] - Middleware ensureAdmin
 
 # User Rules
 
 [x] - Rota show user não deverá mostrar password
 [x] - Validar se o ID passado por parametro é válido e retornar uma mensagem amigável ao usuário
 [x] - Deverá poder editar seu cadastro
-[] - ADMIN - Deverá ter permissão para cadastrar um usuário
-[] - ADMIN - Deverá ter permissão para apagar um usuário
+[x] - ADMIN - Deverá ter permissão para cadastrar um usuário
+[x] - ADMIN - Deverá ter permissão para apagar um usuário
 
 # TESTS
 
 [x] - Deverá criar um usuário
-[] - Deverá Realizar login (create session)
-
-SISTEMA DE LOGIN COM NODE JS: https://www.youtube.com/watch?v=rXWa9jtHu7g
+[x] - create session
+[] - refresh token
+[x] - ensureAuthenticated
+[x] - ensureAdmin
+[x] - Deverá Realizar login (create session)
