@@ -2,9 +2,7 @@
 
 # TODO
 
-[] - AppError
-[] - Refatorar usersTokens repositories
-[] - Verificar onde usava request.ser
+[] - Refatorar usersTokens repositories (receber o objeto ao invés dele descontruido)
 
 # DONE
 
@@ -18,6 +16,8 @@
 [x] - Rota delete
 [x] - Rota update
 [x] - Middleware ensureAdmin
+[x] - AppError
+[x] - Verificar onde usava request.ser
 
 # User Rules
 
