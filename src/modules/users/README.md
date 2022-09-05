@@ -2,7 +2,7 @@
 
 # TODO
 
-[] - Refatorar usersTokens repositories (receber o objeto ao invés dele descontruido)
+[] - Metodo delete, tem que apagar o token relacionado ao user também
 
 # DONE
 
@@ -18,6 +18,7 @@
 [x] - Middleware ensureAdmin
 [x] - AppError
 [x] - Verificar onde usava request.ser
+[x] - Refatorar usersTokens repositories (receber o objeto ao invés dele descontruido)
 
 # User Rules
 

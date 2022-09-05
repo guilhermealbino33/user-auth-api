@@ -1,5 +1,4 @@
-import { User } from '../../../../entities/user';
-import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
+import { IUser, User } from '../../../../entities/user';
 import { IUsersRepository } from '../IUsersRepository';
 
 export default class UsersRepositoryInMemory implements IUsersRepository {
@@ -9,33 +8,30 @@ export default class UsersRepositoryInMemory implements IUsersRepository {
     this.users = [];
   }
 
-  async create({ name, email, password }: ICreateUserDTO): Promise<void> {
-    const user = new User();
+  async create(user: IUser): Promise<void> {
+    const userToCreate = new User();
 
-    Object.assign(user, {
-      name,
-      email,
-      password,
-    });
+    userToCreate.name = user.name;
+    userToCreate.email = user.email;
+    userToCreate.password = user.password;
 
-    this.users.push(user);
+    this.users.push(userToCreate);
   }
-  async updateUser(
-    userId: string,
-    name: string,
-    email: string,
-    password: string
-  ): Promise<void> {
+
+  async updateUser(user: IUser): Promise<void> {
     // TODO
     throw new Error('Method not implemented.');
   }
-  deleteUser(userID: string): Promise<void> {
+
+  async deleteUser(userID: string): Promise<void> {
     // TODO
     throw new Error('Method not implemented.');
   }
+
   async findByEmail(email: string): Promise<User> {
     return this.users.find((user) => user.email === email) as User;
   }
+
   async findById(id: string): Promise<User> {
     return this.users.find((user) => user.id === id) as User;
   }
